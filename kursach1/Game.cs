@@ -126,12 +126,7 @@ namespace kursach1
             if (gamemode == 1&&numPeople<=people||gamemode==2&&numPeople<=lostPeople)
             {
                 //WriteScore(path+"scores.txt");
-                GameTimer.Stop();
-                form.lastScore = score;
-                MessageBox.Show("Final score:" + score.ToString());
                 StopGame();
-                _player.SetDefault();
-                form.ExitMenu();
             }
             if (isCook&&showFoodBar)
             {
@@ -310,21 +305,11 @@ namespace kursach1
         
         public void StopGame()
         {
-            _player.SetDefault();
-            _rectangles.Clear();
-            _places.Clear();
-            form.KeyPreview = false;
-            _player=null;
-        _controller=null;
-            form = null;
-            gameBackground = null;
-            _rectangles = null;
-            _places=null;
-            groups = null;
+            GameTimer.Stop();
+            form.lastScore = score;
+            MessageBox.Show("Final score:" + score.ToString());
 
-            _controller = null;
-            GameTimer = null;
-            
+            form.ExitMenu();
         }
 
         public void Cook()

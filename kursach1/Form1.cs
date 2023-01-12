@@ -11,12 +11,12 @@ namespace kursach1
 {
     public partial class Form1 : Form
     {
-        private String name;
+        private String name="unknown player";
         private Player player = null;
         private Game _game = null;
         private int gamemode;
         public int lastScore;
-        private RecordsTable recordsTable;
+        private RecordsTable _recordsTable;
         private int numPeople;
         
         String path = "pictures/";
@@ -25,7 +25,7 @@ namespace kursach1
             lastScore = 0;
             gamemode = 1;
             numPeople = 10;
-            recordsTable = new RecordsTable();
+            _recordsTable = new RecordsTable();
             InitializeComponent();
             
             Size = mainMenuPanel.Size;
@@ -33,7 +33,8 @@ namespace kursach1
             mainMenuPanel.Visible = true;
             pauseMenuPanel.Visible = false;
             settingsPanel.Visible = false;
-            recordsTable.ReadRecordsTable();
+            recordPanel.Visible = false;
+            _recordsTable.ReadRecordsTable();
             KeyDown += new KeyEventHandler(GetKeyboardKey);
             KeyUp += new KeyEventHandler(FreeKeyboard);
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).SetValue(gamePanel, true, null);
@@ -49,6 +50,7 @@ namespace kursach1
                 e.KeyCode == Keys.D
                 )
             {
+                if(_game!=null)
                 _game.FreeKey();
             }
         }
@@ -66,9 +68,12 @@ namespace kursach1
             }
         }
 
+
+        
+
         private void exitButton_Click(object sender, EventArgs e)
         {
-            recordsTable.WriteRecordsTable();
+            _recordsTable.WriteRecordsTable();
             Close();
         }
 
@@ -77,14 +82,13 @@ namespace kursach1
             ExitMenu();
             player = null;
             player = new Player(path, 1);
-            recordsTable.ChangeRecordsTable(name,(uint)lastScore);
-            recordsTable.WriteRecordsTable();
+            _recordsTable.ChangeRecordsTable(name,(uint)lastScore);
+            _recordsTable.WriteRecordsTable();
         }
 
         public void ExitMenu()
         {
             this.Size = mainMenuPanel.Size;
-            _game.StopGame();
             _game = null;
             gamePanel.Visible = false;
             pauseMenuPanel.Visible = false;
@@ -108,7 +112,10 @@ namespace kursach1
 
         private void GetKeyboardKey(object sender, KeyEventArgs e)
         {
-            _game.ChangeDirection(e.KeyCode);
+            if (_game != null)
+            {
+                _game.ChangeDirection(e.KeyCode);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -166,6 +173,52 @@ namespace kursach1
             settingsPanel.Visible = false;
             if (_game != null)
                 _game = null;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            int tmp;
+            if (int.TryParse(textBox2.Text, out tmp))
+            {
+                if (tmp < 3 && tmp > 1)
+                {
+                    gamemode = tmp;
+                }
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            mainMenuPanel.Visible = true;
+            recordPanel.Visible = false;
+            if (_game != null)
+                _game = null;
+        }
+
+        private void scoresButton_Click(object sender, EventArgs e)
+        {
+            mainMenuPanel.Visible = false;
+            recordPanel.Visible = true;
+         Record1Data.Text = _recordsTable.getSinglePlayer(0);
+            Record2Data.Text = _recordsTable.getSinglePlayer(1);
+            Record3Data.Text = _recordsTable.getSinglePlayer(2);
+            Record4Data.Text = _recordsTable.getSinglePlayer(3);
+            Record5Data.Text = _recordsTable.getSinglePlayer(4);
+            Record6Data.Text = _recordsTable.getSinglePlayer(5);
+            Record7Data.Text = _recordsTable.getSinglePlayer(6);
+            Record8Data.Text = _recordsTable.getSinglePlayer(7);
+            Record9Data.Text = _recordsTable.getSinglePlayer(8);
+            Record10Data.Text = _recordsTable.getSinglePlayer(9);
         }
     }
 }
