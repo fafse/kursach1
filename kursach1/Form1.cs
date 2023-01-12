@@ -11,23 +11,28 @@ namespace kursach1
 {
     public partial class Form1 : Form
     {
+        private String name;
         private Player player = null;
         private Game _game = null;
         private int gamemode;
+        private int lastScore;
+        private RecordsTable recordsTable;
         private int numPeople;
-        private List<String> _recordTable;
+        
         String path = "pictures/";
         public Form1()
         {
+            lastScore = 0;
             gamemode = 1;
             numPeople = 10;
-            _recordTable = new List<string>();
+            recordsTable = new RecordsTable();
             InitializeComponent();
             
             Size = mainMenuPanel.Size;
             gamePanel.Visible = false;
             mainMenuPanel.Visible = true;
             pauseMenuPanel.Visible = false;
+            settingsPanel.Visible = false;
             List<Player> players = new List<Player>();
             for (int i = 0; i < 8; i++)
             {
@@ -61,6 +66,7 @@ namespace kursach1
                     player, button1,gamemode,numPeople);
                 mainMenuPanel.Visible = false;
                 gamePanel.Visible = true;
+                settingsPanel.Visible = false;
             }
         }
 
@@ -82,6 +88,7 @@ namespace kursach1
             gamePanel.Visible = false;
             pauseMenuPanel.Visible = false;
             mainMenuPanel.Visible = true;
+            settingsPanel.Visible = false;
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
@@ -120,10 +127,42 @@ namespace kursach1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*if(_game!=null)
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            mainMenuPanel.Visible = false;
+            settingsPanel.Visible = true;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            name = textBox1.Text;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            int tmp;
+            if(int.TryParse(textBox2.Text, out tmp))
             {
-                _game.Cook();
-            }*/
+                numPeople = tmp;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainMenuButtonFromSettings_Click(object sender, EventArgs e)
+        {
+            mainMenuPanel.Visible = true;
+            settingsPanel.Visible = false;
         }
     }
 }

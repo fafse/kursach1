@@ -38,6 +38,13 @@ namespace kursach1
             this.scoresButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
+            this.settingsPanel = new System.Windows.Forms.Panel();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.mainMenuButtonFromSettings = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.gamePanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.pauseButton = new System.Windows.Forms.Button();
@@ -47,6 +54,7 @@ namespace kursach1
             this.StopGameButton = new System.Windows.Forms.Button();
             this.resumeGameButton = new System.Windows.Forms.Button();
             this.mainMenuPanel.SuspendLayout();
+            this.settingsPanel.SuspendLayout();
             this.gamePanel.SuspendLayout();
             this.pauseMenuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +75,7 @@ namespace kursach1
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(2, 385);
+            this.exitButton.Location = new System.Drawing.Point(0, 382);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(237, 73);
             this.exitButton.TabIndex = 3;
@@ -77,7 +85,7 @@ namespace kursach1
             // 
             // scoresButton
             // 
-            this.scoresButton.Location = new System.Drawing.Point(2, 269);
+            this.scoresButton.Location = new System.Drawing.Point(0, 266);
             this.scoresButton.Name = "scoresButton";
             this.scoresButton.Size = new System.Drawing.Size(237, 73);
             this.scoresButton.TabIndex = 2;
@@ -86,22 +94,90 @@ namespace kursach1
             // 
             // settingsButton
             // 
-            this.settingsButton.Location = new System.Drawing.Point(2, 154);
+            this.settingsButton.Location = new System.Drawing.Point(0, 151);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(237, 73);
             this.settingsButton.TabIndex = 1;
             this.settingsButton.Text = "Настройки";
             this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // playButton
             // 
-            this.playButton.Location = new System.Drawing.Point(2, 21);
+            this.playButton.Location = new System.Drawing.Point(0, 18);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(237, 73);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "Играть";
             this.playButton.UseVisualStyleBackColor = true;
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            // 
+            // settingsPanel
+            // 
+            this.settingsPanel.Controls.Add(this.checkedListBox1);
+            this.settingsPanel.Controls.Add(this.label2);
+            this.settingsPanel.Controls.Add(this.label1);
+            this.settingsPanel.Controls.Add(this.mainMenuButtonFromSettings);
+            this.settingsPanel.Controls.Add(this.textBox2);
+            this.settingsPanel.Controls.Add(this.textBox1);
+            this.settingsPanel.Location = new System.Drawing.Point(2, 3);
+            this.settingsPanel.Name = "settingsPanel";
+            this.settingsPanel.Size = new System.Drawing.Size(910, 527);
+            this.settingsPanel.TabIndex = 4;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(138, 244);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(117, 64);
+            this.checkedListBox1.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(115, 158);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Количество людей";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(147, 91);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Имя игрока";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // mainMenuButtonFromSettings
+            // 
+            this.mainMenuButtonFromSettings.Location = new System.Drawing.Point(598, 400);
+            this.mainMenuButtonFromSettings.Name = "mainMenuButtonFromSettings";
+            this.mainMenuButtonFromSettings.Size = new System.Drawing.Size(184, 62);
+            this.mainMenuButtonFromSettings.TabIndex = 2;
+            this.mainMenuButtonFromSettings.Text = "Главное меню";
+            this.mainMenuButtonFromSettings.UseVisualStyleBackColor = true;
+            this.mainMenuButtonFromSettings.Click += new System.EventHandler(this.mainMenuButtonFromSettings_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(222, 151);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(43, 20);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(224, 88);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(118, 20);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // gamePanel
             // 
@@ -187,15 +263,18 @@ namespace kursach1
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 719);
-            this.Controls.Add(this.mainMenuPanel);
+            this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.gamePanel);
             this.Controls.Add(this.pauseMenuPanel);
+            this.Controls.Add(this.mainMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Pizza Game";
             this.mainMenuPanel.ResumeLayout(false);
+            this.settingsPanel.ResumeLayout(false);
+            this.settingsPanel.PerformLayout();
             this.gamePanel.ResumeLayout(false);
             this.pauseMenuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -218,6 +297,13 @@ namespace kursach1
         private System.Windows.Forms.Button resumeGameButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Button button1;
+        private Panel settingsPanel;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label1;
+        private Button mainMenuButtonFromSettings;
+        private Label label2;
+        private CheckedListBox checkedListBox1;
     }
 }
 
