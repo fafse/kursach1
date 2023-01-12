@@ -40,17 +40,14 @@ namespace kursach1
             this.playButton = new System.Windows.Forms.Button();
             this.gamePanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.playerBox = new System.Windows.Forms.PictureBox();
             this.pauseButton = new System.Windows.Forms.Button();
             this.exitGameButton = new System.Windows.Forms.Button();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
             this.pauseMenuPanel = new System.Windows.Forms.Panel();
             this.StopGameButton = new System.Windows.Forms.Button();
-            this.helpGameButton = new System.Windows.Forms.Button();
             this.resumeGameButton = new System.Windows.Forms.Button();
             this.mainMenuPanel.SuspendLayout();
             this.gamePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.playerBox)).BeginInit();
             this.pauseMenuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,7 +106,6 @@ namespace kursach1
             // gamePanel
             // 
             this.gamePanel.Controls.Add(this.button1);
-            this.gamePanel.Controls.Add(this.playerBox);
             this.gamePanel.Controls.Add(this.pauseButton);
             this.gamePanel.Controls.Add(this.exitGameButton);
             this.gamePanel.Location = new System.Drawing.Point(0, 3);
@@ -120,22 +116,13 @@ namespace kursach1
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(460, 30);
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.Location = new System.Drawing.Point(505, 18);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(64, 49);
             this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // playerBox
-            // 
-            this.playerBox.BackColor = System.Drawing.Color.Transparent;
-            this.playerBox.Location = new System.Drawing.Point(261, 535);
-            this.playerBox.Name = "playerBox";
-            this.playerBox.Size = new System.Drawing.Size(67, 61);
-            this.playerBox.TabIndex = 2;
-            this.playerBox.TabStop = false;
             // 
             // pauseButton
             // 
@@ -169,7 +156,6 @@ namespace kursach1
             // pauseMenuPanel
             // 
             this.pauseMenuPanel.Controls.Add(this.StopGameButton);
-            this.pauseMenuPanel.Controls.Add(this.helpGameButton);
             this.pauseMenuPanel.Controls.Add(this.resumeGameButton);
             this.pauseMenuPanel.Location = new System.Drawing.Point(0, 0);
             this.pauseMenuPanel.Name = "pauseMenuPanel";
@@ -178,26 +164,17 @@ namespace kursach1
             // 
             // StopGameButton
             // 
-            this.StopGameButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("StopGameButton.BackgroundImage")));
-            this.StopGameButton.Location = new System.Drawing.Point(211, 481);
+            this.StopGameButton.Location = new System.Drawing.Point(152, 410);
             this.StopGameButton.Name = "StopGameButton";
-            this.StopGameButton.Size = new System.Drawing.Size(117, 51);
+            this.StopGameButton.Size = new System.Drawing.Size(241, 118);
             this.StopGameButton.TabIndex = 2;
+            this.StopGameButton.Text = "Главное меню";
             this.StopGameButton.UseVisualStyleBackColor = true;
             this.StopGameButton.Click += new System.EventHandler(this.exitToMenuButton_Click);
             // 
-            // helpGameButton
-            // 
-            this.helpGameButton.Location = new System.Drawing.Point(152, 261);
-            this.helpGameButton.Name = "helpGameButton";
-            this.helpGameButton.Size = new System.Drawing.Size(241, 118);
-            this.helpGameButton.TabIndex = 1;
-            this.helpGameButton.Text = "Помощь";
-            this.helpGameButton.UseVisualStyleBackColor = true;
-            // 
             // resumeGameButton
             // 
-            this.resumeGameButton.Location = new System.Drawing.Point(152, 59);
+            this.resumeGameButton.Location = new System.Drawing.Point(152, 131);
             this.resumeGameButton.Name = "resumeGameButton";
             this.resumeGameButton.Size = new System.Drawing.Size(241, 118);
             this.resumeGameButton.TabIndex = 0;
@@ -210,9 +187,9 @@ namespace kursach1
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 719);
+            this.Controls.Add(this.mainMenuPanel);
             this.Controls.Add(this.gamePanel);
             this.Controls.Add(this.pauseMenuPanel);
-            this.Controls.Add(this.mainMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
@@ -220,7 +197,6 @@ namespace kursach1
             this.Text = "Pizza Game";
             this.mainMenuPanel.ResumeLayout(false);
             this.gamePanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.playerBox)).EndInit();
             this.pauseMenuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -237,10 +213,8 @@ namespace kursach1
         private System.Windows.Forms.Button exitGameButton;
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Timer GameTimer;
-        private System.Windows.Forms.PictureBox playerBox;
         private System.Windows.Forms.Panel pauseMenuPanel;
         private System.Windows.Forms.Button StopGameButton;
-        private System.Windows.Forms.Button helpGameButton;
         private System.Windows.Forms.Button resumeGameButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Button button1;

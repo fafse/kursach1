@@ -9,10 +9,17 @@ namespace kursach1.food
         protected Point curPoint;
         protected String name;
         protected Frame frame;
+        protected int score;
 
         public Food(string path)
         {
+            score = 0;
             frame = new Frame(path);
+        }
+
+        public int ShowScore()
+        {
+            return score;
         }
         
         public String getName()

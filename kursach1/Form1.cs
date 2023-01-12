@@ -13,9 +13,15 @@ namespace kursach1
     {
         private Player player = null;
         private Game _game = null;
+        private int gamemode;
+        private int numPeople;
+        private List<String> _recordTable;
         String path = "pictures/";
         public Form1()
         {
+            gamemode = 1;
+            numPeople = 10;
+            _recordTable = new List<string>();
             InitializeComponent();
             
             Size = mainMenuPanel.Size;
@@ -52,7 +58,7 @@ namespace kursach1
             if (_game == null)
             {
                 _game = new Game(this, gamePanel, gamePanel.Size.Width, gamePanel.Size.Height, path,
-                    player, button1);
+                    player, button1,gamemode,numPeople);
                 mainMenuPanel.Visible = false;
                 gamePanel.Visible = true;
             }
@@ -63,7 +69,12 @@ namespace kursach1
             Close();
         }
 
-        private void exitToMenuButton_Click(object sender, EventArgs e)
+        public void exitToMenuButton_Click(object sender, EventArgs e)
+        {
+            ExitMenu();
+        }
+
+        public void ExitMenu()
         {
             this.Size = mainMenuPanel.Size;
             _game.StopGame();
@@ -89,14 +100,7 @@ namespace kursach1
 
         private void GetKeyboardKey(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.A ||
-                e.KeyCode == Keys.W ||
-                e.KeyCode == Keys.S ||
-                e.KeyCode == Keys.D
-                )
-            {
-                _game.ChangeDirection(e.KeyCode);
-            }
+            _game.ChangeDirection(e.KeyCode);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -113,9 +117,13 @@ namespace kursach1
             }
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
-
+            /*if(_game!=null)
+            {
+                _game.Cook();
+            }*/
         }
     }
 }

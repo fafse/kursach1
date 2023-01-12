@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using kursach1.food;
 using kursach1.furniture;
@@ -18,10 +19,13 @@ namespace kursach1.creatures
         private int awaitingTime;
         private bool waitForOrder;
         private bool leave;
+        private int score;
         private EatingPlace cutPlace;
+        private Point CurPos;
 
         public GroupOfGuest(string path,int numGuests)
         {
+            score = 0;
             cutPlace = null;
             leave = false;
             waitForOrder = false;
@@ -29,7 +33,7 @@ namespace kursach1.creatures
             this.path = path;
             dir = Point.Empty;
             Random random = new Random();
-            awaitingTime = random.Next(0, 10);//400 700
+            awaitingTime = random.Next(400, 700);
                 _guests = new List<Guest>();
             for (int i = 0; i < numGuests; i++)
             {
@@ -61,7 +65,19 @@ namespace kursach1.creatures
 
             return tmp;
         }
-        
+
+        public Point GetCurLoc()
+        {
+            if (waitForOrder)
+            {
+                return CurPos;
+            }
+            else
+            {
+                return Point.Empty;
+            }
+        }
+
 
         public bool ChoosePlace(List<EatingPlace> places)
         {
@@ -93,6 +109,8 @@ namespace kursach1.creatures
 
             GameTimer.Tick += MoveToTable;
         }
+
+        
         
         public void Leave()
         {
@@ -128,6 +146,70 @@ namespace kursach1.creatures
                 
 
             }
+        }
+
+        public int getNumPeople()
+        {
+            return _guests.Count;
+        }
+
+        public int getScore()
+        {
+            int curSCore=0;
+            if (awaitingTime > 0)
+            {
+                foreach (var food in order)
+                {
+                    curSCore += food.ShowScore();
+                }
+            }
+
+            return curSCore;
+        }
+
+        public List<Food> GetOrder(List<Food> orderPizza)
+        {
+            if (waitForOrder)
+            {
+                bool isAll = false;
+                foreach (var foodSearch in this.order)
+                {
+                    /*if (!orderPizza.Contains(food))
+                    {
+                        isAll = false;
+                        break;
+                    }*/
+                    foreach (var food in orderPizza)
+                    {
+                        if (food.getName().Equals(foodSearch.getName()))
+                        {
+                            isAll = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (isAll)
+                {
+                    List<Food> newOrder = new List<Food>();
+                    List<Food> result = new List<Food>();
+                    newOrder.AddRange(orderPizza);
+                    foreach (var food in this.order)
+                    {
+                        foreach (var elem in newOrder )
+                        {
+                            if (!elem.getName().Equals(food.getName()))
+                            {
+                                result.Add(elem);
+                            }
+                        }
+                    }
+                    Leave();
+                    return result;
+                }
+            }
+
+            return null;
         }
 
         public void MoveToTable(object sender, EventArgs e)
@@ -192,6 +274,7 @@ namespace kursach1.creatures
                     }
                     showOrder = true;
                     waitForOrder = true;
+                    CurPos = dir;
                     dir = Point.Empty;
                 }
             }

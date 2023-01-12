@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using kursach1.creatures;
+using kursach1.food;
 using kursach1.furniture;
 using kursach1.player;
 
@@ -10,7 +11,6 @@ namespace kursach1
 {
     internal class Game
     {
-        private List<Guest> _guests = new List<Guest>();
         private string path;
         private Player _player;
         private Timer GameTimer;
@@ -24,12 +24,31 @@ namespace kursach1
         private Button button1;
         private int maxGroups = 6;
         private int nextGroup;
+        private int score;
+        private int lostPeople;
+        private int people;
+        private List<Pizza> pizzas;
+        private List<Drink> drinks;
+        private bool showFoodBar;
+        private bool showDrinkBar;
+        private bool isCook;
+        private int cookTime;
+        private int gamemode;
+        private int numPeople;
         
         //tmp
         private bool showColliders = false;
+        private List<Food> wrong = new List<Food>();
 
-        public Game(Form1 form, Panel gamePanel, int sizeX, int sizeY, string path, Player _player,Button button)
+        public Game(Form1 form, Panel gamePanel, int sizeX, int sizeY, string path, Player _player, Button button,
+            int gamemode, int numPeople)
         {
+            this.numPeople = numPeople;
+            this.gamemode = gamemode;//1 - заданное количество посетителей 2 - опр сбежавшие
+            cookTime = 0;
+            isCook = false;
+            showFoodBar = false;
+            score = 0;
             this.path = path;
             this.button1 = button;
             gameBackground= new Bitmap(path+"Pitstseria.png");
@@ -69,14 +88,25 @@ namespace kursach1
 
             _controller = new PhysicsController(_rectangles);
             this._player = _player;
-            
+            pizzas = new List<Pizza>();//
+            for (int i = 0; i < 5; i++)
+            {
+                pizzas.Add(new Pizza(path+"pizza"+(i+1).ToString()+".png"));
+                pizzas[i].setPoint(new Point(120+i*64,540));
+            }
+            drinks = new List<Drink>();//
+            for (int i = 0; i < 3; i++)
+            {
+                drinks.Add(new Drink(path+"drink"+(i+1).ToString()+".png"));
+                drinks[i].setPoint(new Point(355+i*64,540));
+            }
             
             
             _player.AddUpdateToTimer(GameTimer);
             GameTimer.Tick += new EventHandler(update);
             Random random = new Random();
             nextGroup = random.Next(0, 50);
-            random = null;
+            button1.BackColor=Color.Transparent;
             ContunueGame();
         }
 
@@ -93,11 +123,31 @@ namespace kursach1
 
         private void update(object sender, EventArgs e)
         {
+            if (gamemode == 1&&numPeople<=people||gamemode==2&&numPeople<=lostPeople)
+            {
+                //WriteScore(path+"scores.txt");
+                GameTimer.Stop();
+                MessageBox.Show("Final score:" + score.ToString());
+                form.ExitMenu();
+            }
+            if (isCook&&showFoodBar)
+            {
+                if (cookTime > 0)
+                {
+                    cookTime--;
+                }
+                else
+                {
+                    isCook = false;
+                    showFoodBar = false;
+                }
+
+            }
             if (groups!=null&& groups.Count < maxGroups&&nextGroup==0)
             {
                 Random random = new Random();
                 spawnGroup();
-                nextGroup = random.Next(3, 5);//50 120
+                nextGroup = random.Next(50, 120);
             }
 
             if (nextGroup > 0)
@@ -110,33 +160,134 @@ namespace kursach1
 
         public void ChangeDirection(Keys key)
         {
-            switch (key)
+            if (key == Keys.Space )
             {
-                case Keys.A:
+                if (Math.Abs(_player.X() - 151) <= 50 && Math.Abs(_player.Y() - 500) <= 50 && !isCook)
                 {
-                    _player.SetLeftDirection();
-                    _player.Go();
-                    break;
+                    Cook();
+                }else if (Math.Abs(_player.X() - 442) <= 50 && Math.Abs(_player.Y() - 488) <= 50)
+                {
+                    BuyDrinks();
+
                 }
-                case Keys.S:
+                else
                 {
-                    _player.SetDownDirection();
-                    _player.Go();
-                    break;
-                }
-                case Keys.W:
-                {
-                    _player.SetUpDirection();
-                    _player.Go();
-                    break;
-                }
-                case Keys.D:
-                {
-                    _player.SetRightDirection();
-                    _player.Go();
-                    break;
+                    foreach (var group in groups)
+                    {
+                        Point tmp = group.GetCurLoc();
+                        if (tmp != Point.Empty)
+                        {
+                            if (Math.Abs(_player.X() - tmp.X) < 100 && Math.Abs(_player.Y() - tmp.Y) < 100)
+                            {
+                                List<Food> tmpList = group.GetOrder(_player.GiveOrder());
+                                if (tmpList!=null)
+                                {
+                                    _player.SetOrder();
+                                }
+                            }
+                        }
+                    }
                 }
             }
+
+
+            if (showFoodBar&&!isCook)
+            {
+                switch (key)
+                {
+                    case Keys.D1:
+                    {
+                        StartCook(50,0);
+                        break;
+                    }
+                    case Keys.D2:
+                    {
+                        StartCook(50,1);
+
+                        break;
+                    }
+                    case Keys.D3:
+                    {
+                        StartCook(50,2);
+
+                        break;
+                    }
+                    case Keys.D4:
+                    {
+                        StartCook(50,3);
+
+                        break;
+                    }
+                    case Keys.D5:
+                    {
+                        StartCook(50,4);
+
+                        break;
+                    }
+                }
+            }
+            
+            if (showDrinkBar)
+            {
+                switch (key)
+                {
+                    case Keys.D1:
+                    {
+                        _player.BuyDrink(0,1);
+                        break;
+                    }
+                    case Keys.D2:
+                    {
+                        _player.BuyDrink(1,1);
+
+                        break;
+                    }
+                    case Keys.D3:
+                    {
+                        _player.BuyDrink(2,1);
+
+                        break;
+                    }
+                }
+            }
+            
+            if (!showFoodBar&&!showDrinkBar)
+            {
+                switch (key)
+                {
+                    case Keys.A:
+                    {
+                        _player.SetLeftDirection();
+                        _player.Go();
+                        break;
+                    }
+                    case Keys.S:
+                    {
+                        _player.SetDownDirection();
+                        _player.Go();
+                        break;
+                    }
+                    case Keys.W:
+                    {
+                        _player.SetUpDirection();
+                        _player.Go();
+                        break;
+                    }
+                    case Keys.D:
+                    {
+                        _player.SetRightDirection();
+                        _player.Go();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void StartCook(int num,int pizzaNum)
+        {
+            _player.MakePizza(pizzaNum);
+            cookTime = num;
+            isCook = true;
         }
 
         public void FreeKey()
@@ -157,12 +308,10 @@ namespace kursach1
         public void StopGame()
         {
             _player.SetDefault();
-            _guests.Clear();
             _rectangles.Clear();
             _places.Clear();
             form.KeyPreview = false;
-            _guests = null;
-        _player=null;
+            _player=null;
         _controller=null;
             form = null;
             gameBackground = null;
@@ -173,6 +322,17 @@ namespace kursach1
             _controller = null;
             GameTimer = null;
             
+        }
+
+        public void Cook()
+        {
+            _player.Stop();
+            showFoodBar = !showFoodBar;
+        }
+        public void BuyDrinks()
+        {
+            _player.Stop();
+            showDrinkBar = !showDrinkBar;
         }
         
         public void ChangeTimerInterval(int num)
@@ -211,6 +371,15 @@ namespace kursach1
                 }
                 else
                 {
+                    if (group.getScore() == 0)
+                    {
+                        lostPeople += group.getNumPeople();
+                    }
+                    else
+                    {
+                        people += group.getNumPeople();
+                    }
+                    score += group.getScore();
                     tmp = group;
                 }
             }
@@ -220,7 +389,43 @@ namespace kursach1
                 groups.Remove(tmp);
             }
 
-            button1.Text = nextGroup.ToString();
+            if (pizzas != null&& showFoodBar)
+            {
+                foreach (var pizza in pizzas)
+                {
+                    pizza.Draw(g);
+                }
+            }
+            if (drinks != null&& showDrinkBar)
+            {
+                foreach (var drink in drinks)
+                {
+                    drink.Draw(g);
+                }
+            }
+
+            /*if (_player.GiveOrder().Count != 0)
+            {
+                int counter = 0;
+                foreach (var product in _player.GiveOrder())
+                {
+                    product.setPoint( new Point(32+counter*64,650));
+                    counter++;
+                    product.Draw(g);
+                }
+            }*/
+            /*if (wrong.Count != 0)
+            {
+                int counter = 0;
+                foreach (var product in wrong)
+                {
+                    product.setPoint( new Point(32+counter*64,650));
+                    counter++;
+                    product.Draw(g);
+                }
+            }*/
+
+            button1.Text = score.ToString();
 
         }
     }

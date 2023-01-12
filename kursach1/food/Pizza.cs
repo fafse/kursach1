@@ -7,7 +7,9 @@ namespace kursach1.food
     {
         public Pizza(String path) : base(path)
         {
+            score = 500;
             _image = new Bitmap(path);
+            name = path;
         }
         
     }

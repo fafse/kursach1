@@ -17,10 +17,12 @@ namespace kursach1.player
 {
     internal class Player : Creature
     {
-        private int[] drinks;
+        private List<Food> foods;
+        private string path;
         public Player(String path,int num)
         {
-            drinks = new int[3];
+            this.path = path;
+            foods = new List<Food>();
             sizeX = 48;
             sizeY = 64;
             curImage = new Bitmap(path+"pizzaMakers.png");
@@ -49,8 +51,7 @@ namespace kursach1.player
 
         public void SetDefault()
         {
-            drinks = null;
-            drinks = new int[3];
+            foods = null;
             x = 50;
             y = 70;
             direction = 0;
@@ -58,13 +59,38 @@ namespace kursach1.player
             curImage = Images[direction, animNum];
         }
 
-        public void BuyDrink(int drinkName,int num)
+        public void MakePizza(int pizzaName)
         {
-            drinks[drinkName] += num;
+            if (pizzaName < 5)
+            {
+                foods.Add(new Pizza(path+"pizza"+(pizzaName+1).ToString()+".png"));
+            }
         }
+
+        public void BuyDrink(int drinkName, int num)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                foods.Add(new Drink(path + "drink" + (drinkName + 1).ToString() + ".png"));
+            }
+        }
+
         public void AddUpdateToTimer(System.Windows.Forms.Timer GameTimer)
         {
             GameTimer.Tick += new EventHandler(Update);
+        }
+        
+        public List<Food> GiveOrder()
+        {
+            List<Food> tmp = new List<Food>();
+            tmp.AddRange(foods);
+            return tmp;
+        }
+
+        public void SetOrder()
+        {
+            foods.Clear();
+
         }
 
         private void Update(object sender, EventArgs e)
