@@ -82,14 +82,15 @@ namespace kursach1
             ExitMenu();
             player = null;
             player = new Player(path, 1);
-            _recordsTable.ChangeRecordsTable(name,(uint)lastScore);
-            _recordsTable.WriteRecordsTable();
+            
         }
 
         public void ExitMenu()
         {
             this.Size = mainMenuPanel.Size;
             _game = null;
+            _recordsTable.ChangeRecordsTable(name,(uint)lastScore);
+            _recordsTable.WriteRecordsTable();
             gamePanel.Visible = false;
             pauseMenuPanel.Visible = false;
             mainMenuPanel.Visible = true;
