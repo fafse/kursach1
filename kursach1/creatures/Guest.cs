@@ -23,7 +23,11 @@ namespace kursach1.creatures
                 {
                     Bitmap part = new Bitmap(32, 32);
                     Graphics g = Graphics.FromImage(part);
-                    g.DrawImage(curImage, 0, 0, new Rectangle(new Point(num*sizeX*3+sizeX * j, sizeY * i+yStart*sizeY*4), new Size(sizeX, sizeY)), GraphicsUnit.Pixel);
+                    g.DrawImage(curImage, 0, 0, new Rectangle(
+                        new Point(
+                            num*sizeX*3+sizeX * j, sizeY * i+yStart*sizeY*4), 
+                        new Size(
+                            sizeX, sizeY)), GraphicsUnit.Pixel);
                     Images[i, j] = part;
                 }
             }

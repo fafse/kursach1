@@ -14,14 +14,23 @@ namespace kursach1.creatures
         private List<Food> order;
         private string path;
         private bool showOrder;
+        private Timer GameTimer;
+        private int awaitingTime;
+        private bool waitForOrder;
+        private bool leave;
+        private EatingPlace cutPlace;
 
         public GroupOfGuest(string path,int numGuests)
         {
+            cutPlace = null;
+            leave = false;
+            waitForOrder = false;
             showOrder = false;
             this.path = path;
             dir = Point.Empty;
             Random random = new Random();
-            _guests = new List<Guest>();
+            awaitingTime = random.Next(0, 10);//400 700
+                _guests = new List<Guest>();
             for (int i = 0; i < numGuests; i++)
             {
                 _guests.Add(new Guest(path+"guests.png",random.Next(0,7)));
@@ -52,6 +61,7 @@ namespace kursach1.creatures
 
             return tmp;
         }
+        
 
         public bool ChoosePlace(List<EatingPlace> places)
         {
@@ -63,6 +73,7 @@ namespace kursach1.creatures
             {
                 if (place.isFree() && place.GetNumChairs() == _guests.Count)
                 {
+                    cutPlace = place;
                     place.setAvailable(false);
                     dir = place.GetPoint();
                     return true;
@@ -74,12 +85,30 @@ namespace kursach1.creatures
         
         public void AddUpdateToTimer(System.Windows.Forms.Timer GameTimer)
         {
+            this.GameTimer = GameTimer;
             foreach (var guest in _guests)
             {
                 GameTimer.Tick += guest.update;
             }
 
             GameTimer.Tick += MoveToTable;
+        }
+        
+        public void Leave()
+        {
+            cutPlace.setAvailable(true);
+            leave = true;
+            foreach (var guest in _guests)
+            {
+                GameTimer.Tick -= guest.update;
+            }
+
+            GameTimer.Tick -= MoveToTable;
+        }
+
+        public bool isLeft()
+        {
+            return leave;
         }
 
         public void Draw(Graphics g)
@@ -161,9 +190,21 @@ namespace kursach1.creatures
                             break;
                         }
                     }
-
                     showOrder = true;
+                    waitForOrder = true;
                     dir = Point.Empty;
+                }
+            }
+            else
+            {
+                if (awaitingTime == 0)
+                {
+                    Leave();
+                }
+                else
+                {
+                    awaitingTime--;
+
                 }
             }
             

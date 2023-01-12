@@ -97,9 +97,14 @@ namespace kursach1
             {
                 Random random = new Random();
                 spawnGroup();
-                nextGroup = random.Next(50, 120);
+                nextGroup = random.Next(3, 5);//50 120
             }
-            nextGroup--;
+
+            if (nextGroup > 0)
+            {
+                nextGroup--;
+            }
+
             gamePanel.Invalidate();
         }
 
@@ -197,22 +202,25 @@ namespace kursach1
             }
 
             _player.PlayAnimation(g);
-
+            GroupOfGuest tmp = null;
             foreach (var group in groups)
             {
-                group.Draw(g);
-            }
-
-            int counter = 0;
-            foreach (var VARIABLE in _places)
-            {
-                if (VARIABLE.isFree())
+                if (!group.isLeft())
                 {
-                    counter++;
+                    group.Draw(g);
+                }
+                else
+                {
+                    tmp = group;
                 }
             }
 
-            button1.Text = counter.ToString();
+            if (tmp != null)
+            {
+                groups.Remove(tmp);
+            }
+
+            button1.Text = nextGroup.ToString();
 
         }
     }
