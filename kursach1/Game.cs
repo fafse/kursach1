@@ -11,6 +11,7 @@ namespace kursach1
     internal class Game
     {
         private List<Guest> _guests = new List<Guest>();
+        private string path;
         private Player _player;
         private Timer GameTimer;
         private Panel gamePanel;
@@ -19,13 +20,17 @@ namespace kursach1
         private Bitmap gameBackground;
         private List<Rectangle> _rectangles;
         private List<EatingPlace> _places;
-        private GroupOfGuest one;
+        private List<GroupOfGuest> groups;
+        private Button button1;
+        private int maxGroups = 6;
         
         //tmp
-        private bool showColliders = true;
+        private bool showColliders = false;
 
         public Game(Form1 form, Panel gamePanel, int sizeX, int sizeY, string path, Player _player,Button button)
         {
+            this.path = path;
+            this.button1 = button;
             gameBackground= new Bitmap(path+"Pitstseria.png");
             this.form = form;
             form.KeyPreview = true;
@@ -58,11 +63,9 @@ namespace kursach1
                 _rectangles.AddRange(place.GetColiders());
             }
 
-            one = new GroupOfGuest(path, 3,button);
-            one.ChoosePlace(_places);
-            one.AddUpdateToTimer(GameTimer);
-            
-            
+            groups = new List<GroupOfGuest>();
+
+
             _controller = new PhysicsController(_rectangles);
             this._player = _player;
             
@@ -75,9 +78,24 @@ namespace kursach1
             ContunueGame();
         }
 
+        private void spawnGroup()
+        {
+            Random random = new Random();
+            GroupOfGuest tmp = new GroupOfGuest(path, (random.Next(1, 3)) * 2);
+            if (tmp.ChoosePlace(_places))
+            {
+                tmp.AddUpdateToTimer(GameTimer);
+                groups.Add(tmp);
+            }
+        }
+
         private void update(object sender, EventArgs e)
         {
-            gamePanel.Invalidate();
+            if (groups.Count < maxGroups)
+            {
+                spawnGroup();
+            }
+                gamePanel.Invalidate();
         }
 
         public void ChangeDirection(Keys key)
@@ -174,8 +192,22 @@ namespace kursach1
             }
 
             _player.PlayAnimation(g);
-            one.Draw(g);
 
+            foreach (var group in groups)
+            {
+                group.Draw(g);
+            }
+
+            int counter = 0;
+            foreach (var VARIABLE in _places)
+            {
+                if (VARIABLE.isFree())
+                {
+                    counter++;
+                }
+            }
+
+            button1.Text = counter.ToString();
 
         }
     }

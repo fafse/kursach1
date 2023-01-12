@@ -10,44 +10,47 @@ namespace kursach1.creatures
     {
         private List<Guest> _guests;
         private Point dir;
-        private Button button;
 
-        public GroupOfGuest(string path,int numGuests, Button button)
+        public GroupOfGuest(string path,int numGuests)
         {
-            this.button = button;
             dir = Point.Empty;
             Random random = new Random();
             _guests = new List<Guest>();
             for (int i = 0; i < numGuests; i++)
             {
-                _guests.Add(new Guest(path+"guests.png",i));
-                _guests[i].setPos(new Point(random.Next(5,500),random.Next(5,200)));
-                //_guests.Add(new Guest(path+"guests.png",random.Next(0,6)));
+                _guests.Add(new Guest(path+"guests.png",random.Next(0,7)));
+                _guests[i].setPos(new Point(267,81));
             }
-
-            this.button.Text = _guests.Count.ToString();
+            
         }
 
-        public void ChoosePlace(List<EatingPlace> places)
+        public bool ChoosePlace(List<EatingPlace> places)
         {
+            if (places.Count == 0)
+            {
+                return false;
+            }
             foreach (var place in places)
             {
-                if (place.isFree() && place.GetNumChairs() >= _guests.Count)
+                if (place.isFree() && place.GetNumChairs() == _guests.Count)
                 {
                     place.setAvailable(false);
                     dir = place.GetPoint();
+                    return true;
                 }
             }
+
+            return false;
         }
         
         public void AddUpdateToTimer(System.Windows.Forms.Timer GameTimer)
         {
             foreach (var guest in _guests)
             {
-                GameTimer.Tick += new EventHandler(guest.update);
+                GameTimer.Tick += guest.update;
             }
 
-            GameTimer.Tick += new EventHandler(MoveToTable);
+            GameTimer.Tick += MoveToTable;
         }
 
         public void Draw(Graphics g)
@@ -62,7 +65,8 @@ namespace kursach1.creatures
         {
             if (dir != Point.Empty)
             {
-                
+                int counter = 0;
+
                 foreach (var guest in _guests)
                 {
                     if (dir.Y > guest.Y()+9)
@@ -89,9 +93,26 @@ namespace kursach1.creatures
                     {
                         
                         guest.Stop();
+                        counter++;
                     }
                 }
+                if (counter == _guests.Count)
+                {
+                    _guests[0].setPos(new Point(dir.X + 64+64/4, dir.Y));
+                    _guests[0].SetDownDirection();
+                    _guests[1].setPos(new Point(dir.X+64+64/4,dir.Y+2*64/2));
+                    _guests[1].SetUpDirection();
+                    if (_guests.Count == 4)
+                    {
+                        _guests[2].setPos(new Point(dir.X+64+64*3/2/2,dir.Y+64/2));
+                        _guests[2].SetLeftDirection();
+                        _guests[3].setPos(new Point(dir.X+64*3/2/2,dir.Y+64/2));
+                        _guests[3].SetRightDirection();
+                    }
+                    dir = Point.Empty;
+                }
             }
+            
             
         }
     }

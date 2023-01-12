@@ -38,7 +38,7 @@ namespace kursach1.player
                 }
             }
             x = 50;
-            y = 50;
+            y = 70;
             direction = 0;
             animNum = 1;
             curImage = Images[direction, animNum];
@@ -47,7 +47,7 @@ namespace kursach1.player
         public void SetDefault()
         {
             x = 50;
-            y = 50;
+            y = 70;
             direction = 0;
             animNum = 1;
             curImage = Images[direction, animNum];
