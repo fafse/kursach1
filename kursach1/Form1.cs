@@ -43,10 +43,13 @@ namespace kursach1
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            _game = new Game(this, gamePanel, gamePanel.Size.Width, gamePanel.Size.Height, path,
-                player);
-            mainMenuPanel.Visible = false;
-            gamePanel.Visible = true;
+            if (_game == null)
+            {
+                _game = new Game(this, gamePanel, gamePanel.Size.Width, gamePanel.Size.Height, path,
+                    player);
+                mainMenuPanel.Visible = false;
+                gamePanel.Visible = true;
+            }
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -80,6 +83,10 @@ namespace kursach1
 
         private void GetKeyboardKey(object sender, KeyEventArgs e)
         {
+            if(e.KeyCode==Keys.Space)
+            {
+                settingsButton.Text = "SPACE";
+            }
             if (e.KeyCode == Keys.A ||
                 e.KeyCode == Keys.W ||
                 e.KeyCode == Keys.S ||

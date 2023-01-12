@@ -64,7 +64,6 @@ namespace kursach1
 
         private void update(object sender, EventArgs e)
         {
-            GC.Collect();
             gamePanel.Invalidate();
         }
 
@@ -142,24 +141,21 @@ namespace kursach1
 
         public void Draw(Graphics g,Button button)
         {
-            
-            g.Clear(Color.Aqua);
-            button.Text= _guests.Count.ToString();
             g.DrawImage(gameBackground,0,0);
             foreach (var rectangle in _rectangles)
             {
                 g.DrawRectangle(new Pen(Color.Chartreuse), rectangle);
             }
             
-            /*foreach (var place in _places)
+            foreach (var place in _places)
             {
                 place.DrawPlace(g);
-            }*/
+            }
             
-            /*if (_controller.IsCollide(_player, new Point(_player.X(), _player.Y())))
+            if (_controller.IsCollide(_player, new Point(_player.X(), _player.Y())))
             {
                 _player.MoveBack();
-            }*/
+            }
 
             _player.PlayAnimation(g);
 

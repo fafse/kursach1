@@ -47,7 +47,6 @@ namespace kursach1
             this.StopGameButton = new System.Windows.Forms.Button();
             this.helpGameButton = new System.Windows.Forms.Button();
             this.resumeGameButton = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.mainMenuPanel.SuspendLayout();
             this.gamePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.playerBox)).BeginInit();
@@ -58,7 +57,6 @@ namespace kursach1
             // 
             this.mainMenuPanel.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.mainMenuPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("mainMenuPanel.BackgroundImage")));
-            this.mainMenuPanel.Controls.Add(this.flowLayoutPanel1);
             this.mainMenuPanel.Controls.Add(this.exitButton);
             this.mainMenuPanel.Controls.Add(this.scoresButton);
             this.mainMenuPanel.Controls.Add(this.settingsButton);
@@ -195,13 +193,6 @@ namespace kursach1
             this.resumeGameButton.UseVisualStyleBackColor = true;
             this.resumeGameButton.Click += new System.EventHandler(this.resumeGameButton_Click);
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(639, 198);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(8, 8);
-            this.flowLayoutPanel1.TabIndex = 4;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,7 +231,6 @@ namespace kursach1
         private System.Windows.Forms.Button helpGameButton;
         private System.Windows.Forms.Button resumeGameButton;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
