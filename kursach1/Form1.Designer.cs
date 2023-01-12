@@ -53,10 +53,12 @@ namespace kursach1
             this.pauseMenuPanel = new System.Windows.Forms.Panel();
             this.StopGameButton = new System.Windows.Forms.Button();
             this.resumeGameButton = new System.Windows.Forms.Button();
+            this.recordPanel = new System.Windows.Forms.Panel();
             this.mainMenuPanel.SuspendLayout();
             this.settingsPanel.SuspendLayout();
             this.gamePanel.SuspendLayout();
             this.pauseMenuPanel.SuspendLayout();
+            this.recordPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuPanel
@@ -114,6 +116,7 @@ namespace kursach1
             // 
             // settingsPanel
             // 
+            this.settingsPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.settingsPanel.Controls.Add(this.checkedListBox1);
             this.settingsPanel.Controls.Add(this.label2);
             this.settingsPanel.Controls.Add(this.label1);
@@ -181,9 +184,9 @@ namespace kursach1
             // 
             // gamePanel
             // 
-            this.gamePanel.Controls.Add(this.button1);
             this.gamePanel.Controls.Add(this.pauseButton);
             this.gamePanel.Controls.Add(this.exitGameButton);
+            this.gamePanel.Controls.Add(this.recordPanel);
             this.gamePanel.Location = new System.Drawing.Point(0, 3);
             this.gamePanel.Name = "gamePanel";
             this.gamePanel.Size = new System.Drawing.Size(600, 720);
@@ -193,7 +196,7 @@ namespace kursach1
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(505, 18);
+            this.button1.Location = new System.Drawing.Point(501, 17);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 49);
             this.button1.TabIndex = 3;
@@ -258,14 +261,22 @@ namespace kursach1
             this.resumeGameButton.UseVisualStyleBackColor = true;
             this.resumeGameButton.Click += new System.EventHandler(this.resumeGameButton_Click);
             // 
+            // recordPanel
+            // 
+            this.recordPanel.Controls.Add(this.button1);
+            this.recordPanel.Location = new System.Drawing.Point(4, 1);
+            this.recordPanel.Name = "recordPanel";
+            this.recordPanel.Size = new System.Drawing.Size(907, 523);
+            this.recordPanel.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 719);
-            this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.gamePanel);
             this.Controls.Add(this.pauseMenuPanel);
+            this.Controls.Add(this.settingsPanel);
             this.Controls.Add(this.mainMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -277,6 +288,7 @@ namespace kursach1
             this.settingsPanel.PerformLayout();
             this.gamePanel.ResumeLayout(false);
             this.pauseMenuPanel.ResumeLayout(false);
+            this.recordPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -304,6 +316,7 @@ namespace kursach1
         private Button mainMenuButtonFromSettings;
         private Label label2;
         private CheckedListBox checkedListBox1;
+        private Panel recordPanel;
     }
 }
 
