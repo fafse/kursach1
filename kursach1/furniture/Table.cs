@@ -6,9 +6,9 @@ namespace kursach1.furniture
     public class Table
     {
         private Image image;
-        private PictureBox _pictureBoxTable;
         private int sizeX=64, sizeY=64;
-        public Table(string path,int num)
+        private Point myPos;
+        public Table(string path,int num,Point myPos)
         {
             image = new Bitmap(path);
             int yStart = 0;
@@ -16,6 +16,7 @@ namespace kursach1.furniture
             Graphics g = Graphics.FromImage(part);
             g.DrawImage(image, 0, 0, new Rectangle(new Point(num*sizeX, 0), new Size(sizeX, sizeY)), GraphicsUnit.Pixel);
             image = part;
+            this.myPos = myPos;
         }
 
         public int getSizeX()
@@ -25,6 +26,10 @@ namespace kursach1.furniture
         public int getSizeY()
         {
             return sizeY;
+        }
+        public Point getPoint()
+        {
+            return new Point(myPos.X,myPos.Y);
         }
 
         public void DrawTable(Graphics g, Point point)

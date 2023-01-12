@@ -9,3 +9,14 @@ C:\Users\k5469\Downloads\Prct2_YVA_SDL\kursach1\kursach1\obj\Debug\kursach1.cspr
 C:\Users\k5469\Downloads\Prct2_YVA_SDL\kursach1\kursach1\obj\Debug\kursach1.exe
 C:\Users\k5469\Downloads\Prct2_YVA_SDL\kursach1\kursach1\obj\Debug\kursach1.pdb
 C:\Users\k5469\Downloads\Prct2_YVA_SDL\kursach1\kursach1\obj\Debug\kursach1.Form1.resources
+C:\Users\k5469\RiderProjects\kursach1\kursach1\bin\Debug\kursach1.exe.config
+C:\Users\k5469\RiderProjects\kursach1\kursach1\bin\Debug\kursach1.exe
+C:\Users\k5469\RiderProjects\kursach1\kursach1\bin\Debug\kursach1.pdb
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.csproj.AssemblyReference.cache
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.csproj.SuggestedBindingRedirects.cache
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.Form1.resources
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.Properties.Resources.resources
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.csproj.GenerateResource.cache
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.csproj.CoreCompileInputs.cache
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.exe
+C:\Users\k5469\RiderProjects\kursach1\kursach1\obj\Debug\kursach1.pdb

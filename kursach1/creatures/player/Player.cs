@@ -43,10 +43,6 @@ namespace kursach1.player
             animNum = 1;
             curImage = Images[direction, animNum];
         }
-        public void AddUpdateToTimer(System.Windows.Forms.Timer GameTimer)
-        {
-            GameTimer.Tick += new EventHandler(Update);
-        }
 
         public void SetDefault()
         {
@@ -55,6 +51,10 @@ namespace kursach1.player
             direction = 0;
             animNum = 1;
             curImage = Images[direction, animNum];
+        }
+        public void AddUpdateToTimer(System.Windows.Forms.Timer GameTimer)
+        {
+            GameTimer.Tick += new EventHandler(Update);
         }
 
         private void Update(object sender, EventArgs e)

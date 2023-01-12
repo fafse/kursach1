@@ -19,8 +19,12 @@ namespace kursach1
         private Bitmap gameBackground;
         private List<Rectangle> _rectangles;
         private List<EatingPlace> _places;
+        private GroupOfGuest one;
+        
+        //tmp
+        private bool showColliders = true;
 
-        public Game(Form1 form, Panel gamePanel, int sizeX, int sizeY, string path, Player _player)
+        public Game(Form1 form, Panel gamePanel, int sizeX, int sizeY, string path, Player _player,Button button)
         {
             gameBackground= new Bitmap(path+"Pitstseria.png");
             this.form = form;
@@ -40,25 +44,34 @@ namespace kursach1
             _rectangles.Add(new Rectangle(new Point(355, 385), new Size(250,100)));
 
             _places = new List<EatingPlace>();
-            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(200,200)));
-            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(250,400)));
-            for (int i = 0; i < 6; i++)
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(100,138),true));
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(100,238),true));
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(300,138),true));
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(300,238),true));
+            
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(-10,138),false));
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(-10,238),false));
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(410,138),false));
+            _places.Add(new EatingPlace(path+"Chair_amp_amp_Table.png",new Point(410,238),false));
+            foreach (var place in _places)
             {
-                _guests.Add(new Guest(path+"guests.png", i));
-                _guests[i].setPos(new Point(32*i+50,150));
+                _rectangles.AddRange(place.GetColiders());
             }
+
+            one = new GroupOfGuest(path, 3,button);
+            one.ChoosePlace(_places);
+            one.AddUpdateToTimer(GameTimer);
+            
+            
             _controller = new PhysicsController(_rectangles);
             this._player = _player;
             
             
             
             _player.AddUpdateToTimer(GameTimer);
-            foreach (var guest in _guests)
-            {
-                guest.ShowPic(GameTimer);
-            }
             GameTimer.Tick += new EventHandler(update);
 
+            
             ContunueGame();
         }
 
@@ -142,11 +155,14 @@ namespace kursach1
         public void Draw(Graphics g,Button button)
         {
             g.DrawImage(gameBackground,0,0);
-            foreach (var rectangle in _rectangles)
+            if (showColliders)
             {
-                g.DrawRectangle(new Pen(Color.Chartreuse), rectangle);
+                foreach (var rectangle in _rectangles)
+                {
+                    g.DrawRectangle(new Pen(Color.Chartreuse), rectangle);
+                }
             }
-            
+
             foreach (var place in _places)
             {
                 place.DrawPlace(g);
@@ -158,13 +174,9 @@ namespace kursach1
             }
 
             _player.PlayAnimation(g);
+            one.Draw(g);
 
-            
 
-            foreach (var guest in _guests)
-            {
-                guest.PlayAnimation(g);
-            }
         }
     }
 }

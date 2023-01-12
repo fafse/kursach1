@@ -6,39 +6,68 @@ namespace kursach1.furniture
 {
     public class EatingPlace
     {
-        private List<Chair> _chairs = new List<Chair>();
+        private List<Chair> _chairs;
         private Table _table;
         private Boolean isAvailable = true;
         private Point curPos;
-        public EatingPlace(string path, Point curPos)
+        private List<Rectangle> colliders;
+        private bool lol = false;
+        private bool fullPlace = false;
+        public EatingPlace(string path, Point curPos, bool fullPlace)
         {
+            this.fullPlace = fullPlace;
+            _chairs = new List<Chair>();
+            colliders = new List<Rectangle>();
             this.curPos = curPos;
-            for (int i = 0; i <= 4; i++)
+            int chairSize = 64,tableSize=64;
+            _chairs.Add(new Chair(path, 0, new Point(curPos.X + chairSize, curPos.Y)));
+            _chairs.Add(new Chair(path, 1, new Point(curPos.X+chairSize,curPos.Y+2*chairSize/2)));
+            if (fullPlace)
             {
-                if (i != 2)
-                {
-                    _chairs.Add(new Chair(path, i));
-                }
-                else
-                {
-                    _table = new Table(path, i);
-                }
+                _chairs.Add(new Chair(path, 3, new Point(curPos.X+chairSize+chairSize/2,curPos.Y+chairSize/2)));
+                _chairs.Add(new Chair(path, 4, new Point(curPos.X+chairSize/2,curPos.Y+chairSize/2)));
             }
+
+            _table = new Table(path, 2,new Point(curPos.X+tableSize,curPos.Y+tableSize/2));
+            colliders.Add(new Rectangle(new Point(curPos.X+_table.getSizeX(),curPos.Y+_table.getSizeY()/2),new Size(_table.getSizeX(),_table.getSizeY())));
         }
 
+        public Point GetPoint()
+        {
+            return new Point(curPos.X, curPos.Y);
+        }
+        public int GetNumChairs()
+        {
+            int num = 4;
+            if (!fullPlace)
+            {
+                num = 2;
+            }
+            return num;
+        }
+
+        public bool isFree()
+        {
+            return isAvailable;
+        }
+
+        public void setAvailable(bool available)
+        {
+            this.isAvailable = available;
+        }
+
+        public List<Rectangle> GetColiders()
+        {
+            return new List<Rectangle>(colliders);
+        }
+        
         public void DrawPlace(Graphics g)
         {
-            /*_chairs[0].DrawChair(g,new Point(curPos.X+_chairs[0].getSizeX(),curPos.Y));
-            _chairs[1].DrawChair(g,new Point(curPos.X+_chairs[1].getSizeX(),curPos.Y+2*_chairs[1].getSizeY()));
-            _chairs[2].DrawChair(g,new Point(curPos.X+2*+_chairs[2].getSizeY(),curPos.Y+_chairs[2].getSizeY()));
-            _chairs[3].DrawChair(g,new Point(curPos.X,curPos.Y+_chairs[3].getSizeY()));*/
-
-            _chairs[0].DrawChair(g,new Point(curPos.X+_chairs[0].getSizeX(),curPos.Y));//up
-            _chairs[1].DrawChair(g,new Point(curPos.X+_chairs[1].getSizeX(),curPos.Y+2*_chairs[1].getSizeY()/2));//down
-            _chairs[2].DrawChair(g,new Point(curPos.X+_chairs[2].getSizeX()+_chairs[2].getSizeX()/2,curPos.Y+_chairs[2].getSizeY()/2));//right
-            _chairs[3].DrawChair(g,new Point(curPos.X+_chairs[3].getSizeX()/2,curPos.Y+_chairs[3].getSizeY()/2));//left
-            
-            _table.DrawTable(g,new Point(curPos.X+_table.getSizeX(),curPos.Y+_table.getSizeY()/2));
+            foreach (var chair in _chairs)
+            {
+                chair.DrawChair(g,chair.getPoint());
+            }
+            _table.DrawTable(g,_table.getPoint());
         }
         
     }

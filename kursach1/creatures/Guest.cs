@@ -7,6 +7,7 @@ namespace kursach1.creatures
     {
         public Guest(String path,int num)
         {
+            Stop();
             curImage = new Bitmap(path);
             int yStart = 0;
             if (num >= 4)
@@ -27,8 +28,8 @@ namespace kursach1.creatures
                 }
             }
 
-            x = 540;
-            y = 374;
+            x = 200;
+            y = 200;
             direction = 0;
             animNum = 1;
             curImage = Images[direction, animNum];
@@ -39,25 +40,46 @@ namespace kursach1.creatures
             x = point.X;
             y = point.Y;
         }
-        public void ShowPic( System.Windows.Forms.Timer GameTimer)
-        {
-            GameTimer.Tick += new EventHandler(update);
-        }
-        
+
         public void update(object sender, EventArgs e)
         {
-            if(animNum==2)
+            if (!isStop)
             {
-                animNum = 0;
-            }
-            if (direction == 3) 
-            {
-                direction = 0;
+                switch (direction)
+                {
+                    case 0:
+                    {
+                        Move(0, 1);
+                        break;
+                    }
+                    case 1:
+                    {
+                        Move(-1, 0);
+                        break;
+                    }
+                    case 2:
+                    {
+                        Move(1, 0);
+                        break;
+                    }
+                    case 3:
+                    {
+                        Move(0, -1);
+                        break;
+                    }
+                }
+
+                if (animNum == 0)
+                {
+                    animNum = 2;
+                }
+                else
+                {
+                    animNum = 0;
+                }
             }
 
-            animNum += 1;
-            direction++;
         }
-        
+
     }
 }

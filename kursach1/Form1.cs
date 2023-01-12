@@ -19,7 +19,6 @@ namespace kursach1
             InitializeComponent();
             
             Size = mainMenuPanel.Size;
-            this.Size = mainMenuPanel.Size;
             gamePanel.Visible = false;
             mainMenuPanel.Visible = true;
             pauseMenuPanel.Visible = false;
@@ -38,7 +37,14 @@ namespace kursach1
 
         private void FreeKeyboard(object sender, KeyEventArgs e)
         {
-            _game.FreeKey();
+            if (e.KeyCode == Keys.A ||
+                e.KeyCode == Keys.W ||
+                e.KeyCode == Keys.S ||
+                e.KeyCode == Keys.D
+                )
+            {
+                _game.FreeKey();
+            }
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -46,7 +52,7 @@ namespace kursach1
             if (_game == null)
             {
                 _game = new Game(this, gamePanel, gamePanel.Size.Width, gamePanel.Size.Height, path,
-                    player);
+                    player, button1);
                 mainMenuPanel.Visible = false;
                 gamePanel.Visible = true;
             }
@@ -83,10 +89,6 @@ namespace kursach1
 
         private void GetKeyboardKey(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode==Keys.Space)
-            {
-                settingsButton.Text = "SPACE";
-            }
             if (e.KeyCode == Keys.A ||
                 e.KeyCode == Keys.W ||
                 e.KeyCode == Keys.S ||
@@ -109,6 +111,11 @@ namespace kursach1
             {
                 _game.Draw(e.Graphics,pauseButton);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

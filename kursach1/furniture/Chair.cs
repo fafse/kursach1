@@ -6,9 +6,9 @@ namespace kursach1.furniture
     public class Chair
     {
         private Image image;
-        private PictureBox _pictureBoxChair;
         private int sizeX=64, sizeY=64;
-        public Chair(string path,int num)
+        private Point myPos;
+        public Chair(string path,int num, Point myPos)
         {
             image = new Bitmap(path);
             int yStart = 0;
@@ -16,10 +16,16 @@ namespace kursach1.furniture
             Graphics g = Graphics.FromImage(part);
             g.DrawImage(image, 0, 0, new Rectangle(new Point(num*sizeX, 0), new Size(sizeX, sizeY)), GraphicsUnit.Pixel);
             image = part;
+            this.myPos = myPos;
         }
         public void DrawChair(Graphics g, Point point)
         {
             g.DrawImage(image,point);
+        }
+
+        public Point getPoint()
+        {
+            return new Point(myPos.X,myPos.Y);
         }
 
         public int getSizeX()

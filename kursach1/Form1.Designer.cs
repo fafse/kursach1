@@ -39,6 +39,7 @@ namespace kursach1
             this.settingsButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.gamePanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.playerBox = new System.Windows.Forms.PictureBox();
             this.pauseButton = new System.Windows.Forms.Button();
             this.exitGameButton = new System.Windows.Forms.Button();
@@ -107,6 +108,7 @@ namespace kursach1
             // 
             // gamePanel
             // 
+            this.gamePanel.Controls.Add(this.button1);
             this.gamePanel.Controls.Add(this.playerBox);
             this.gamePanel.Controls.Add(this.pauseButton);
             this.gamePanel.Controls.Add(this.exitGameButton);
@@ -115,6 +117,16 @@ namespace kursach1
             this.gamePanel.Size = new System.Drawing.Size(600, 720);
             this.gamePanel.TabIndex = 7;
             this.gamePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaint);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(460, 30);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // playerBox
             // 
@@ -231,6 +243,7 @@ namespace kursach1
         private System.Windows.Forms.Button helpGameButton;
         private System.Windows.Forms.Button resumeGameButton;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private Button button1;
     }
 }
 
