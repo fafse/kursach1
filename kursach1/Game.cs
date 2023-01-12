@@ -23,6 +23,7 @@ namespace kursach1
         private List<GroupOfGuest> groups;
         private Button button1;
         private int maxGroups = 6;
+        private int nextGroup;
         
         //tmp
         private bool showColliders = false;
@@ -73,8 +74,9 @@ namespace kursach1
             
             _player.AddUpdateToTimer(GameTimer);
             GameTimer.Tick += new EventHandler(update);
-
-            
+            Random random = new Random();
+            nextGroup = random.Next(0, 50);
+            random = null;
             ContunueGame();
         }
 
@@ -91,11 +93,14 @@ namespace kursach1
 
         private void update(object sender, EventArgs e)
         {
-            if (groups.Count < maxGroups)
+            if (groups!=null&& groups.Count < maxGroups&&nextGroup==0)
             {
+                Random random = new Random();
                 spawnGroup();
+                nextGroup = random.Next(50, 120);
             }
-                gamePanel.Invalidate();
+            nextGroup--;
+            gamePanel.Invalidate();
         }
 
         public void ChangeDirection(Keys key)
@@ -158,8 +163,8 @@ namespace kursach1
             gameBackground = null;
             _rectangles = null;
             _places=null;
-        
-            
+            groups = null;
+
             _controller = null;
             GameTimer = null;
             

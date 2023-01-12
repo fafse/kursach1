@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace kursach1.food
 {
-    public class Pizza
+    public class Pizza : Food
     {
-        private Image _image;
-        private int x, y;
-        private int picSizeX, picSizeY;
-        private String name;
-
-        public Pizza(String path)
+        public Pizza(String path) : base(path)
         {
             _image = new Bitmap(path);
         }
-        public String getName()
-        {
-            return name;
-        }
+        
     }
 }

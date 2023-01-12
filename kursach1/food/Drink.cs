@@ -3,21 +3,11 @@ using System.Drawing;
 
 namespace kursach1.food
 {
-    public class Drink
+    public class Drink : Food
     {
-        private Image _image;
-        private int x, y;
-        private int picSizeX, picSizeY;
-        private String name;
-
-        public Drink(String path)
+        public Drink(String path) : base(path)
         {
             _image = new Bitmap(path);
-        }
-
-        public String getName()
-        {
-            return name;
         }
     }
 }

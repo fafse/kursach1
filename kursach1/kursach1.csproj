@@ -49,7 +49,9 @@
     <Compile Include="creatures\GroupOfGuest.cs" />
     <Compile Include="creatures\Guest.cs" />
     <Compile Include="food\Drink.cs" />
+    <Compile Include="food\Food.cs" />
     <Compile Include="food\Pizza.cs" />
+    <Compile Include="Frame.cs" />
     <Compile Include="furniture\Chair.cs" />
     <Compile Include="furniture\EatingPlace.cs" />
     <Compile Include="furniture\Table.cs" />

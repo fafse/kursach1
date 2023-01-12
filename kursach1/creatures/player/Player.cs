@@ -11,13 +11,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using kursach1.food;
 
 namespace kursach1.player
 {
     internal class Player : Creature
     {
+        private int[] drinks;
         public Player(String path,int num)
         {
+            drinks = new int[3];
             sizeX = 48;
             sizeY = 64;
             curImage = new Bitmap(path+"pizzaMakers.png");
@@ -46,11 +49,18 @@ namespace kursach1.player
 
         public void SetDefault()
         {
+            drinks = null;
+            drinks = new int[3];
             x = 50;
             y = 70;
             direction = 0;
             animNum = 1;
             curImage = Images[direction, animNum];
+        }
+
+        public void BuyDrink(int drinkName,int num)
+        {
+            drinks[drinkName] += num;
         }
         public void AddUpdateToTimer(System.Windows.Forms.Timer GameTimer)
         {
