@@ -15,7 +15,7 @@ namespace kursach1
         private Player player = null;
         private Game _game = null;
         private int gamemode;
-        private int lastScore;
+        public int lastScore;
         private RecordsTable recordsTable;
         private int numPeople;
         
@@ -33,16 +33,11 @@ namespace kursach1
             mainMenuPanel.Visible = true;
             pauseMenuPanel.Visible = false;
             settingsPanel.Visible = false;
-            List<Player> players = new List<Player>();
-            for (int i = 0; i < 8; i++)
-            {
-                players.Add(new Player(path, i));
-            }
-
+            recordsTable.ReadRecordsTable();
             KeyDown += new KeyEventHandler(GetKeyboardKey);
             KeyUp += new KeyEventHandler(FreeKeyboard);
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).SetValue(gamePanel, true, null);
-            player = players[1];
+            player = new Player(path, 1);
 
         }
 
@@ -62,6 +57,7 @@ namespace kursach1
         {
             if (_game == null)
             {
+                _game = null;
                 _game = new Game(this, gamePanel, gamePanel.Size.Width, gamePanel.Size.Height, path,
                     player, button1,gamemode,numPeople);
                 mainMenuPanel.Visible = false;
@@ -72,12 +68,17 @@ namespace kursach1
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            recordsTable.WriteRecordsTable();
             Close();
         }
 
         public void exitToMenuButton_Click(object sender, EventArgs e)
         {
             ExitMenu();
+            player = null;
+            player = new Player(path, 1);
+            recordsTable.ChangeRecordsTable(name,(uint)lastScore);
+            recordsTable.WriteRecordsTable();
         }
 
         public void ExitMenu()
@@ -163,6 +164,8 @@ namespace kursach1
         {
             mainMenuPanel.Visible = true;
             settingsPanel.Visible = false;
+            if (_game != null)
+                _game = null;
         }
     }
 }

@@ -52,6 +52,7 @@ namespace kursach1.player
         public void SetDefault()
         {
             foods = null;
+            speed = 10;
             x = 50;
             y = 70;
             direction = 0;

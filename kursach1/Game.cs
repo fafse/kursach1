@@ -127,7 +127,10 @@ namespace kursach1
             {
                 //WriteScore(path+"scores.txt");
                 GameTimer.Stop();
+                form.lastScore = score;
                 MessageBox.Show("Final score:" + score.ToString());
+                StopGame();
+                _player.SetDefault();
                 form.ExitMenu();
             }
             if (isCook&&showFoodBar)
