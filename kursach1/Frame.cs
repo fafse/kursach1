@@ -1,25 +1,26 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace kursach1
 {
     public class Frame
     {
-        private Image _image;
+        private readonly Image _image;
         private Point curPoint;
 
-        public Frame(String path)
+        public Frame(string path)
         {
-            path = path.Substring(0, path.LastIndexOf("/")+1);
-            _image = new Bitmap(path+ "frame.png");
+            path = path.Substring(0, path.LastIndexOf("/") + 1);
+            _image = new Bitmap(path + "frame.png");
         }
+
         public void setPoint(Point point)
         {
             curPoint = point;
         }
+
         public void Draw(Graphics g)
         {
-            g.DrawImage(_image,curPoint);
+            g.DrawImage(_image, curPoint);
         }
     }
 }

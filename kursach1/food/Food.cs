@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace kursach1.food
 {
@@ -7,8 +6,8 @@ namespace kursach1.food
     {
         protected Image _image;
         protected Point curPoint;
-        protected String name;
         protected Frame frame;
+        protected string name;
         protected int score;
 
         public Food(string path)
@@ -21,21 +20,22 @@ namespace kursach1.food
         {
             return score;
         }
-        
-        public String getName()
+
+        public string getName()
         {
             return name;
         }
+
         public void setPoint(Point point)
         {
             curPoint = point;
-            frame.setPoint(new Point(curPoint.X-8, curPoint.Y-8));
+            frame.setPoint(new Point(curPoint.X - 8, curPoint.Y - 8));
         }
 
         public void Draw(Graphics g)
         {
             frame.Draw(g);
-            g.DrawImage(_image,curPoint);
+            g.DrawImage(_image, curPoint);
         }
     }
 }

@@ -108,7 +108,7 @@ namespace kursach1
             this.exitButton.TabIndex = 3;
             this.exitButton.Text = "Выход";
             this.exitButton.UseVisualStyleBackColor = true;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // scoresButton
             // 
@@ -118,7 +118,7 @@ namespace kursach1
             this.scoresButton.TabIndex = 2;
             this.scoresButton.Text = "Таблица Рекордов";
             this.scoresButton.UseVisualStyleBackColor = true;
-            this.scoresButton.Click += new System.EventHandler(this.scoresButton_Click);
+            this.scoresButton.Click += new System.EventHandler(this.ScoresButton_Click);
             // 
             // settingsButton
             // 
@@ -128,7 +128,7 @@ namespace kursach1
             this.settingsButton.TabIndex = 1;
             this.settingsButton.Text = "Настройки";
             this.settingsButton.UseVisualStyleBackColor = true;
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            this.settingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // playButton
             // 
@@ -138,7 +138,7 @@ namespace kursach1
             this.playButton.TabIndex = 0;
             this.playButton.Text = "Играть";
             this.playButton.UseVisualStyleBackColor = true;
-            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            this.playButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // settingsPanel
             // 
@@ -161,7 +161,7 @@ namespace kursach1
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(43, 20);
             this.textBox3.TabIndex = 6;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.textBox3.TextChanged += new System.EventHandler(this.GamemodeBox_TextChanged);
             // 
             // label3
             // 
@@ -171,7 +171,6 @@ namespace kursach1
             this.label3.Size = new System.Drawing.Size(259, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Режим игры(1 - обычные люди, 2 - на выбывание)";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -181,7 +180,6 @@ namespace kursach1
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Количество людей";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -191,7 +189,6 @@ namespace kursach1
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Имя игрока";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // mainMenuButtonFromSettings
             // 
@@ -201,7 +198,7 @@ namespace kursach1
             this.mainMenuButtonFromSettings.TabIndex = 2;
             this.mainMenuButtonFromSettings.Text = "Главное меню";
             this.mainMenuButtonFromSettings.UseVisualStyleBackColor = true;
-            this.mainMenuButtonFromSettings.Click += new System.EventHandler(this.mainMenuButtonFromSettings_Click);
+            this.mainMenuButtonFromSettings.Click += new System.EventHandler(this.MainMenuButtonFromSettings_Click);
             // 
             // textBox2
             // 
@@ -209,7 +206,7 @@ namespace kursach1
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(43, 20);
             this.textBox2.TabIndex = 1;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.TextChanged += new System.EventHandler(this.NumPeopleBox_TextChanged);
             // 
             // textBox1
             // 
@@ -217,7 +214,7 @@ namespace kursach1
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(118, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.TextChanged += new System.EventHandler(this.NameBox_TextChanged);
             // 
             // gamePanel
             // 
@@ -243,7 +240,7 @@ namespace kursach1
             this.pauseButton.TabIndex = 1;
             this.pauseButton.UseCompatibleTextRendering = true;
             this.pauseButton.UseVisualStyleBackColor = false;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            this.pauseButton.Click += new System.EventHandler(this.PauseButton_Click);
             // 
             // exitGameButton
             // 
@@ -256,7 +253,7 @@ namespace kursach1
             this.exitGameButton.Size = new System.Drawing.Size(86, 38);
             this.exitGameButton.TabIndex = 0;
             this.exitGameButton.UseVisualStyleBackColor = false;
-            this.exitGameButton.Click += new System.EventHandler(this.exitToMenuButton_Click);
+            this.exitGameButton.Click += new System.EventHandler(this.ExitToMenuButton_Click);
             // 
             // recordPanel
             // 
@@ -314,7 +311,6 @@ namespace kursach1
             this.button1.Size = new System.Drawing.Size(64, 49);
             this.button1.TabIndex = 3;
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pauseMenuPanel
             // 
@@ -333,7 +329,7 @@ namespace kursach1
             this.StopGameButton.TabIndex = 2;
             this.StopGameButton.Text = "Главное меню";
             this.StopGameButton.UseVisualStyleBackColor = true;
-            this.StopGameButton.Click += new System.EventHandler(this.exitToMenuButton_Click);
+            this.StopGameButton.Click += new System.EventHandler(this.ExitToMenuButton_Click);
             // 
             // resumeGameButton
             // 
@@ -343,7 +339,7 @@ namespace kursach1
             this.resumeGameButton.TabIndex = 0;
             this.resumeGameButton.Text = "Продолжить";
             this.resumeGameButton.UseVisualStyleBackColor = true;
-            this.resumeGameButton.Click += new System.EventHandler(this.resumeGameButton_Click);
+            this.resumeGameButton.Click += new System.EventHandler(this.ResumeGameButton_Click);
             // 
             // Record1Text
             // 
@@ -353,7 +349,6 @@ namespace kursach1
             this.Record1Text.Size = new System.Drawing.Size(16, 13);
             this.Record1Text.TabIndex = 0;
             this.Record1Text.Text = "1.";
-            this.Record1Text.Click += new System.EventHandler(this.label5_Click);
             // 
             // Record2Text
             // 
@@ -534,7 +529,7 @@ namespace kursach1
             this.button2.TabIndex = 2;
             this.button2.Text = "Главное Меню";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.MainMenuButtonFromScores_Click);
             // 
             // Form1
             // 
@@ -578,7 +573,6 @@ namespace kursach1
         private System.Windows.Forms.Panel pauseMenuPanel;
         private System.Windows.Forms.Button StopGameButton;
         private System.Windows.Forms.Button resumeGameButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private Button button1;
         private Panel settingsPanel;
         private TextBox textBox1;

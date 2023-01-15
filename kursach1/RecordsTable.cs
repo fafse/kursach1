@@ -7,19 +7,19 @@ namespace kursach1
 {
     public class RecordsTable
     {
-        private LinkedList<SinglePlayerResult> _recordsTable = new LinkedList<SinglePlayerResult>();
+        private readonly LinkedList<SinglePlayerResult> _recordsTable = new LinkedList<SinglePlayerResult>();
 
         public void ReadRecordsTable()
         {
             try
             {
-                using (BinaryReader reader =
+                using (var reader =
                        new BinaryReader(File.Open("Other\\RecordsOfPlayers", FileMode.OpenOrCreate)))
                 {
                     while (reader.PeekChar() > -1)
                     {
-                        string nick = reader.ReadString();
-                        uint points = reader.ReadUInt32();
+                        var nick = reader.ReadString();
+                        var points = reader.ReadUInt32();
                         _recordsTable.AddLast(new SinglePlayerResult(nick, points));
                     }
                 }
@@ -30,12 +30,11 @@ namespace kursach1
             }
         }
 
-        public String getSinglePlayer(int ind)
+        public string getSinglePlayer(int ind)
         {
             if (ind < _recordsTable.Count)
                 return _recordsTable.ToArray()[ind].ToString();
-            else
-                return "-";
+            return "-";
         }
 
         public void ChangeRecordsTable(string nick, uint points)
@@ -49,7 +48,7 @@ namespace kursach1
             if (_recordsTable.Last.Value.score >= points && _recordsTable.Count == 10)
                 return;
             var node = _recordsTable.First;
-            int i = 1;
+            var i = 1;
             do
             {
                 if (node.Value.score < points)
@@ -75,7 +74,7 @@ namespace kursach1
         {
             try
             {
-                using (BinaryWriter writer =
+                using (var writer =
                        new BinaryWriter(File.Open("Other\\RecordsOfPlayers", FileMode.OpenOrCreate)))
                 {
                     foreach (var item in _recordsTable)

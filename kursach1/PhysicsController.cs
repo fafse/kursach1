@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using kursach1.creatures;
 
@@ -7,7 +6,7 @@ namespace kursach1
 {
     public class PhysicsController
     {
-        private List<Rectangle> _rectangles;
+        private readonly List<Rectangle> _rectangles;
 
         public PhysicsController(List<Rectangle> rectangles)
         {
@@ -17,18 +16,15 @@ namespace kursach1
 
         public void AddObj(List<Rectangle> _rectangle)
         {
-            this._rectangles.AddRange(_rectangle);
+            _rectangles.AddRange(_rectangle);
         }
 
-        public Boolean IsCollide(Creature objCreature ,Point dir)
+        public bool IsCollide(Creature objCreature, Point dir)
         {
             foreach (var _rectangle in _rectangles)
-            {
-                if(_rectangle.Contains(new Point(dir.X+objCreature.getSizeX()/2,dir.Y+objCreature.getSizeY()/2)))
-                {
+                if (_rectangle.Contains(new Point(dir.X + objCreature.getSizeX() / 2,
+                        dir.Y + objCreature.getSizeY() / 2)))
                     return true;
-                }
-            }
 
             return false;
         }

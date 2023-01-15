@@ -1,20 +1,22 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
 
 namespace kursach1.furniture
 {
     public class Table
     {
-        private Image image;
-        private int sizeX=64, sizeY=64;
+        private readonly Image image;
         private Point myPos;
-        public Table(string path,int num,Point myPos)
+        private readonly int sizeX = 64;
+        private readonly int sizeY = 64;
+
+        public Table(string path, int num, Point myPos)
         {
             image = new Bitmap(path);
-            int yStart = 0;
+            var yStart = 0;
             Image part = new Bitmap(sizeX, sizeY);
-            Graphics g = Graphics.FromImage(part);
-            g.DrawImage(image, 0, 0, new Rectangle(new Point(num*sizeX, 0), new Size(sizeX, sizeY)), GraphicsUnit.Pixel);
+            var g = Graphics.FromImage(part);
+            g.DrawImage(image, 0, 0, new Rectangle(new Point(num * sizeX, 0), new Size(sizeX, sizeY)),
+                GraphicsUnit.Pixel);
             image = part;
             this.myPos = myPos;
         }
@@ -23,18 +25,20 @@ namespace kursach1.furniture
         {
             return sizeX;
         }
+
         public int getSizeY()
         {
             return sizeY;
         }
+
         public Point getPoint()
         {
-            return new Point(myPos.X,myPos.Y);
+            return new Point(myPos.X, myPos.Y);
         }
 
         public void DrawTable(Graphics g, Point point)
         {
-            g.DrawImage(image,point);
+            g.DrawImage(image, point);
         }
     }
 }
